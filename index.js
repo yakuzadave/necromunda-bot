@@ -6,7 +6,14 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 //import fs from "fs";
 const path = import.meta.url.split("?")[1];
-const fs = async () => import("fs").default;
+const fs = async () => {
+  try {
+    const fs = await import("fs");
+    return fs.default;
+  } catch {
+    return null;
+  }
+};
 import express from "express";
 import axios from "axios";
 const uuid = import("uuid");
@@ -92,6 +99,7 @@ const discord_addCommands = async (client, command_list) => {
   return client;
 };
 
+// Init DB Function
 const init_db = async (client, db) => {
   if (typeof db.data == "undefined") {
     db.data = {
@@ -124,15 +132,15 @@ const init_db = async (client, db) => {
 };
 
 const discord_init = async (client) => {
-  let login_req = await client.login(token);
-  //console.log(await login_req)
+  // Login to Discord
+  await client.login(token);
 
+  // Set up events
   client.events = new Collection();
-
-  // Fire ready event
   client.on("ready", () => {
     console.log("Discord Client is now ready");
   });
+
   // Interaction Events
   client.on(Events.InteractionCreate, async (interaction) => {
     console.log(interaction);
@@ -148,13 +156,10 @@ const discord_init = async (client) => {
       let command_res = await command.execute(interaction, client);
     } catch (error) {
       console.error(error);
-      // await interaction.reply({
-      //   content: "There was an error while executing this command!",
-      //   ephemeral: true,
-      // });
     }
   });
 
+  // Message Events
   client.on(Events.MessageCreate, (message, client) => {
     console.log(message);
   });
@@ -162,17 +167,22 @@ const discord_init = async (client) => {
   return client;
 };
 
+// Register Commands
 if (invoke_register == true) {
   registerCommand(command_list, rest, Routes);
 }
 
+// Add Commands to Discord Client
 if (typeof client.commands == "undefined") {
   discord_addCommands(client, command_list);
 }
 
+// Init DB
 init_db(client, db);
 
 wait(1000);
+
+// Init Discord Client
 discord_init(client);
 
 export default client;
