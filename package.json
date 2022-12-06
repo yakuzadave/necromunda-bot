@@ -1,0 +1,62 @@
+{
+  "name": "discomush",
+  "version": "1.0.0",
+  "description": "This is a reimagining of an old idea to try and find a good way to leverage Discord bots to make a game drawing influence with older MUD/MUSH games and Tabletop PbP, but with the ability to be run entirely in a Discord server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --loader ./loader.js ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yakuzadave/DiscoMush.git"
+  },
+  "keywords": [
+    "mud",
+    "mush",
+    "rpg",
+    "dnd",
+    "tabletop",
+    "discord",
+    "bot",
+    "game",
+    "multiplayer",
+    "text-game"
+  ],
+  "author": "Dave Carmocan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yakuzadave/DiscoMush/issues"
+  },
+  "homepage": "https://github.com/yakuzadave/DiscoMush#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "chalk": "^5.1.2",
+    "d20": "^1.4.1",
+    "discord.js": "^14.7.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.0",
+    "line-by-line": "^0.1.6",
+    "lodash": "^4.17.21",
+    "lowdb": "^5.0.5",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.0",
+    "terminal-kit": "^3.0.0",
+    "vorpal": "^1.12.0",
+    "unpipe": "^1.0.0",
+    "@discordjs/rest": "^1.4.0",
+    "discord-api-types": "^0.37.20",
+    "@discordjs/builders": "^1.4.0",
+    "zlib-sync": "^0.1.7",
+    "erlpack": "^0.1.4",
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^5.0.10",
+    "pixi.js": "^7.0.4",
+    "canvas": "^2.10.2"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16.14.2"
+  }
+}
