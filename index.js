@@ -31,6 +31,7 @@ import { fileURLToPath } from "node:url";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 import lodash from "lodash";
+import { commands } from "./commands.js";
 
 // const ready = import("./events/ready.js");
 const { Logger } = import("./modules/Logger.js");
@@ -45,7 +46,7 @@ console.log("wait: ", wait);
 import db_data from "./db_old.json";
 
 // load commands
-import { ping, info, fetch, gangs, gangers, injury, ammo } from "./commands.js";
+const { ping, info, fetch, gangs, gangers, injury, ammo } = commands;
 let command_list = [ping, info, fetch, gangs, gangers, injury, ammo];
 console.log("Loaded command files");
 // let invoke_register = false;
@@ -65,9 +66,8 @@ const registerCommand = async (command_data_list, rest, Routes) => {
     await rest;
     await console.log("Started refreshing application (/) commands.");
     const client_id = await process.env.CLIENT_ID;
-    const command_data = await command_data_list.map((command) =>
-      command.data.toJSON()
-    );
+    const command_data = await commands.map((command) => command.data.toJSON());
+    //console.log(`${command.data.name}`)
     wait(2000);
     console.log(await command_data);
     let req = await rest.put(Routes.applicationCommands(client_id), {
@@ -88,12 +88,14 @@ const registerCommand = async (command_data_list, rest, Routes) => {
 };
 
 // Load Discord Commands Function
-const discord_addCommands = async (client, command_list) => {
-  console.log(`Adding ${command_list.length} commands to Discord Client.`);
-  client.commands = new Collection();
-  let discord_command_list = command_list.forEach(
-    async (command) => await client.commands.set(command.data.name, command)
-  );
+const discord_addCommands = async (client, commands) => {
+  console.log(`Adding ${commands.length} commands to Discord Client.`);
+  client.commands = commands;
+
+  // client.commands = new Collection();
+  // let discord_command_list = command_list.forEach(
+  //   async (command) => await client.commands.set(command.data.name, command)
+  // );
 
   await wait(3000);
   return client;
@@ -174,7 +176,8 @@ if (invoke_register == true) {
 
 // Add Commands to Discord Client
 if (typeof client.commands == "undefined") {
-  discord_addCommands(client, command_list);
+  discord_addCommands(client, commands);
+  // discord_addCommands(client, command_list);
 }
 
 // Init DB
