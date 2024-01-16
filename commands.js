@@ -2,13 +2,13 @@ import { CommandInteraction, Collection } from "discord.js";
 import lodash from "lodash";
 
 // import ./gangers.js using ES6 import syntax
-import { gangers } from "./commands/gangers.js";
-import { fetch } from "./commands/fetch.js";
-import { gangs } from "./commands/gangs.js";
-import { info } from "./commands/info.js";
-import { injury } from "./commands/injury.js";
-import { ping } from "./commands/ping.js";
-import { ammo } from "./commands/ammo.js";
+const gangers = require("./commands/gangers.js");
+const fetch = require("./commands/fetch.js");
+const gangs = require("./commands/gangs.js");
+const info = require("./commands/info.js");
+const injury = require("./commands/injury.js");
+const ping = require("./commands/ping.js");
+const ammo = require("./commands/ammo.js");
 
 const commands = new Collection();
 commands.set(gangers.data.name, gangers);

@@ -1,7 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
 
-// import ./gangers.js as a command
-
 export const ping = {
   data: new SlashCommandBuilder()
     .setName("ping")
